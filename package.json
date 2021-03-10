@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mklengs/mma-api"
+    "url": "https://github.com/woog2roid/mma-api"
   },
   "keywords": [
     "MMA",
@@ -20,12 +20,11 @@
   "author": "= <=>",
   "license": "BSD",
   "bugs": {
-    "url": "https://github.com/mklengs/mma-api/issues"
+    "url": "https://github.com/woog2roid/mma-api/issues"
   },
-  "homepage": "https://github.com/mklengs/mma-api",
+  "homepage": "https://github.com/woog2roid/mma-api",
   "dependencies": {
-    "google-it": "^1.4.0",
-    "sherdog": "^0.1.10",
-    "ufc": "^0.1.1"
+    "google-it": "^1.6.2",
+    "sherdog": "^0.1.10"
   }
 }
