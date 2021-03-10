@@ -10,6 +10,10 @@ cd mma-api
 npm install
 ```
 
+~~From npm:~~ 
+```
+This version is not on the npm
+```
 ## Use
 
 ```
