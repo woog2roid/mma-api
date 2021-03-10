@@ -1,4 +1,3 @@
-
 # MMA Fighter API
 Get fighter JSON by name.  
 
@@ -6,15 +5,9 @@ Get fighter JSON by name.
 From source:
 
 ```
-git clone https://github.com/valish/mma-api
+git clone https://github.com/woog2roid/mma-api
 cd mma-api
 npm install
-```
-
-From npm:
-
-```
-npm install mma
 ```
 
 ## Use
