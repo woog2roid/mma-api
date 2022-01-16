@@ -1,0 +1,21 @@
+{
+  "name": "mma-api",
+  "version": "1.0.0",
+  "description": "NodeJS based MMA-API providing fighter's data by crawling sherdog",
+  "repository": "https://github.com/woog2roid/mma-api",
+  "license": "MIT",
+  "author": "woog2roid",
+  "bugs": {
+    "url": "https://github.com/woog2roid/mma-api/issues"
+  },
+  "dependencies": {
+    "axios": "^0.24.0",
+    "cheerio": "^1.0.0-rc.10",
+    "google-it": "^1.6.2"
+  },
+  "keywords": [
+    "MMA",
+    "API",
+    "UFC"
+  ]
+}
