@@ -99,7 +99,7 @@ module.exports.getFighterData = async (url) => {
 			
 			if (result !== "") fighter.fights.push(fight);
 		});
-		console.log(fighter);
+		//console.log(fighter);
 		return fighter;
 	} catch(err) {
 		console.log(err);
