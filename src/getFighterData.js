@@ -58,17 +58,20 @@ module.exports.getFighterData = async (url) => {
 		const nc = $('.nc');
 		const winBy = wins.find('.pl'); 
 		const loseBy = losses.find('.pl');
-		fighter.wins.total = wins.find('.win span:nth-child(2)').text();
-		fighter.wins.knockouts = $(winBy.get(0)).text();
-		fighter.wins.submissions = $(winBy.get(1)).text();
-		fighter.wins.decisions = $(winBy.get(2)).text();
-		fighter.wins.others = $(winBy.get(3)).text();
-		fighter.losses.total = losses.find('.lose span:nth-child(2)').text();
-		fighter.losses.knockouts = $(loseBy.get(0)).text();
-		fighter.losses.submissions = $(loseBy.get(1)).text();
-		fighter.losses.decisions = $(loseBy.get(2)).text();
-		fighter.losses.others = $(loseBy.get(3)).text();
-		fighter.no_contests = nc.find('span:nth-child(2)').text();
+		fighter.wins.total = parseInt(wins.find('.win span:nth-child(2)').text());
+		fighter.wins.knockouts = parseInt($(winBy.get(0)).text());
+		fighter.wins.submissions = parseInt($(winBy.get(1)).text());
+		fighter.wins.decisions = parseInt($(winBy.get(2)).text());
+		const winOthers = parseInt($(winBy.get(3)).text());
+		fighter.wins.others = winOthers ? winOthers : 0;
+		fighter.losses.total = parseInt(losses.find('.lose span:nth-child(2)').text());
+		fighter.losses.knockouts = parseInt($(loseBy.get(0)).text());
+		fighter.losses.submissions = parseInt($(loseBy.get(1)).text());
+		fighter.losses.decisions = parseInt($(loseBy.get(2)).text());
+		const loseOthers = parseInt($(loseBy.get(3)).text());
+		fighter.losses.others = loseOthers ? loseOthers : 0;
+		const noContests = parseInt(nc.find('span:nth-child(2)').text());
+		fighter.no_contests = noContests ? noContests : 0;
 		
 		//fighter's fight history
 		$('.module.fight_history tr:not(.table_head)').each((index, item) => {
