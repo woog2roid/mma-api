@@ -24,6 +24,7 @@ const index = async () => {
 	const data = await mma.api('Korean Zombie');
 	console.log(data);
 }
+index();
 
 //Result is
 {

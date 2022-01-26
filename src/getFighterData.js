@@ -1,47 +1,67 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
+//fighter data form and init method
 let fighter = {
-	name: "",
-	nickname: "",
-	age: "",
-	birthday: "",
-	locality: "",
-	nationality: "",
-	association: "",
-	height: "",
-	weight: "",
-	weight_class: "",
-	image_url: "",
+	name: '',
+	nickname: '',
+	age: '',
+	birthday: '',
+	locality: '',
+	nationality: '',
+	association: '',
+	height: '',
+	weight: '',
+	weight_class: '',
+	image_url: '',
 	wins: {
 		total: 0,
 		knockouts: 0,
 		submissions: 0,
 		decisions: 0,
-		others: 0
+		others: 0,
 	},
 	losses: {
 		total: 0,
 		knockouts: 0,
 		submissions: 0,
 		decisions: 0,
-		others: 0            
+		others: 0,
 	},
 	no_contests: 0,
-	fights: []
+	fights: [],
+};
+const initFighter = () => {
+	fighter.name = '';
+	fighter.nickname = '';
+	fighter.age = '';
+	fighter.birthday = '';
+	fighter.locality = '';
+	fighter.nationality = '';
+	fighter.association = '';
+	fighter.height = '';
+	fighter.weight = '';
+	fighter.weight_class = '';
+	fighter.image_url = '';
+	fighter.wins = {};
+	fighter.lossess = {};
+	fighter.no_contests = {};
+	fighter.fights = {};
 };
 
 //parse fighter's data from sherdog HTML file
 module.exports.getFighterData = async (url) => {
 	try {
+		//get HTML and prepare for parsing
 		const html = await axios.get(url);
 		const $ = await cheerio.load(html.data);
-		
+		initFighter();
+
 		//fighter's basic info
 		const info = $('.fighter-info');
 		fighter.name = info.find('[itemprop="name"]>.fn').text();
 		const nickname = info.find('[itemprop="name"]>.nickname').text();
-		fighter.nickname = nickname.substring(1, nickname.length-1);
+		fighter.nickname = nickname.substring(1, nickname.length - 1);
 		fighter.image_url = info.find('img.profile-image.photo').attr('src');
 		fighter.age = info.find('[itemprop="birthDate"]').prevAll('b').text();
 		fighter.birthday = info.find('[itemprop="birthDate"]').text();
@@ -51,12 +71,12 @@ module.exports.getFighterData = async (url) => {
 		fighter.weight = info.find('[itemprop="weight"]').parent().text();
 		fighter.association = info.find('.association>[itemprop="name"]').text();
 		fighter.weight_class = info.find('.association-class>a').text();
-		
+
 		//fighter's record
 		const wins = $('.wins');
 		const losses = $('.loses');
 		const nc = $('.nc');
-		const winBy = wins.find('.pl'); 
+		const winBy = wins.find('.pl');
 		const loseBy = losses.find('.pl');
 		fighter.wins.total = parseInt(wins.find('.win span:nth-child(2)').text());
 		fighter.wins.knockouts = parseInt($(winBy.get(0)).text());
@@ -72,8 +92,9 @@ module.exports.getFighterData = async (url) => {
 		fighter.losses.others = loseOthers ? loseOthers : 0;
 		const noContests = parseInt(nc.find('span:nth-child(2)').text());
 		fighter.no_contests = noContests ? noContests : 0;
-		
+
 		//fighter's fight history
+		fighter.fights = [];
 		$('.module.fight_history tr:not(.table_head)').each((index, item) => {
 			const el = $(item);
 			const result = el.find('td:nth-child(1) .final_result').text();
@@ -82,16 +103,20 @@ module.exports.getFighterData = async (url) => {
 			const event_name = el.find('td:nth-child(3) a').text();
 			const event_url = el.find('td:nth-child(3) a').attr('href');
 			const event_date = el.find('td:nth-child(3) .sub_line').text();
-			const method = el.find('td:nth-child(4)').text().split(/\)(.*)/)[0] + ")";
+			const method =
+				el
+					.find('td:nth-child(4)')
+					.text()
+					.split(/\)(.*)/)[0] + ')';
 			const referee = el.find('td:nth-child(4) .sub_line').text();
 			const round = el.find('td:nth-child(5)').text();
 			const time = el.find('td:nth-child(6)').text();
-			
+
 			const fight = {
 				name: event_name,
 				date: event_date,
 				opponent: opponent_name,
-				result,          
+				result,
 				method,
 				referee,
 				round,
@@ -99,12 +124,11 @@ module.exports.getFighterData = async (url) => {
 				event_url,
 				opponent_url,
 			};
-			
-			if (result !== "") fighter.fights.push(fight);
+
+			if (result !== '') fighter.fights.push(fight);
 		});
-		//console.log(fighter);
 		return fighter;
-	} catch(err) {
+	} catch (err) {
 		console.log(err);
 	}
 };

@@ -10,10 +10,15 @@ const { getFighterData } = require('./getFighterData');
 //1.search fighter's sherdog url by google
 //2.parse data from sherdog url
 const api = async (fighter, callback) => {
-	const url = await getSherdogURL(fighter);
-	const data = await getFighterData(url);
-	callback(data);
-	return data;
+	try {
+		const url = await getSherdogURL(fighter);
+		const data = await getFighterData(url);
+		if(callback && (typeof callback == "function")) callback(data);
+		return data;
+	} catch(err) {
+		console.log('Error from mma-api:');
+		console.log(err);
+	}
 };
 
 module.exports.api = api;
