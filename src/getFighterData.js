@@ -3,6 +3,7 @@ const cheerio = require('cheerio');
 
 //fighter data form and init method
 let fighter = {
+	url: '',
 	name: '',
 	nickname: '',
 	age: '',
@@ -32,6 +33,7 @@ let fighter = {
 	fights: [],
 };
 const initFighter = () => {
+	fighter.url = '';
 	fighter.name = '';
 	fighter.nickname = '';
 	fighter.age = '';
@@ -44,7 +46,7 @@ const initFighter = () => {
 	fighter.weight_class = '';
 	fighter.image_url = '';
 	fighter.wins = {};
-	fighter.lossess = {};
+	fighter.losses = {};
 	fighter.no_contests = {};
 	fighter.fights = {};
 };
@@ -58,6 +60,8 @@ module.exports.getFighterData = async (url) => {
 		initFighter();
 
 		//fighter's basic info
+		fighter.url = url;
+		console.log(url);
 		const info = $('.fighter-info');
 		fighter.name = info.find('[itemprop="name"]>.fn').text();
 		const nickname = info.find('[itemprop="name"]>.nickname').text();

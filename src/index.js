@@ -16,7 +16,6 @@ const api = async (fighter, callback) => {
 		if(callback && (typeof callback == "function")) callback(data);
 		return data;
 	} catch(err) {
-		console.log('Error from mma-api:');
 		console.log(err);
 	}
 };

@@ -28,6 +28,7 @@ index();
 
 //Result is
 {
+	"url": "https://www.sherdog.com/fighter/Chan-Sung-Jung-36155",
 	"name": "Chan Sung Jung",
 	"nickname": "The Korean Zombie",
 	"age": "34",

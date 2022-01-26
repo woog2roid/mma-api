@@ -1,6 +1,6 @@
 {
   "name": "mma-api",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "NodeJS based MMA-API providing fighter's data by crawling Sherdog",
   "license": "MIT",
   "main": "src/index.js",
